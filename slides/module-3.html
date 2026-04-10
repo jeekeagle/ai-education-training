@@ -25,44 +25,87 @@
       <h2>现场演练：设计你的备课工作流</h2>
       <ul>
         <li>选择一个你下一周要讲的课题</li>
-        <li>描述你的班级情况（30人/50人/重点班/普通班）</li>
-        <li>用语音输入给 AI，生成一份讲稿</li>
-        <li>AI 生成 PPT 提纲</li>
-        <li>针对班级中的特定学生生成分层任务</li>
+        <li>描述你的班级情况（人数、层次、学情）</li>
+        <li>用语音输入 → AI 整理 → 生成教案初稿</li>
+        <li>现场调整，输出可用的教案框架</li>
+      </ul>
+      <div class="highlight-box">
+        <p>目标：60分钟内，跑通一个完整的备课工作流</p>
+      </div>
+    </div>
+
+    <div class="pres-slide">
+      <h2>工具交付清单</h2>
+      <ul>
+        <li><strong>通义千问</strong> app / web — 日常备课主力</li>
+        <li><strong>Kimi</strong> — 长文档分析、试卷分析</li>
+        <li><strong>秘塔搜索</strong> — 课前背景资料搜集</li>
+        <li><strong>讯飞听见</strong> — 语音转文字，口述成稿</li>
+        <li><strong>iSlide</strong> — PPT 排版辅助</li>
       </ul>
     </div>
 
     <div class="pres-slide">
-      <h2>演练场景示例</h2>
+      <h2>课后行动建议</h2>
+      <ul>
+        <li><strong>明天</strong>：选一个简单任务，用 AI 完成（如写通知、查资料）</li>
+        <li><strong>本周</strong>：用 AI 辅助备一节课，记录使用感受</li>
+        <li><strong>长期</strong>：逐步把耗时任务迁移到 AI 工作流</li>
+      </ul>
       <div class="highlight-box">
-        <p>老师：</p>
-        <p>"我明天要讲《背影》第二课时，班级学生30人，<br>有5人散文理解较弱，今天课上有个学生问我<br>朱自清为什么把父亲写得那么感人……"</p>
+        <p>核心心态：AI 是杠杆，你的判断力才是支点</p>
       </div>
-      <p style="margin-top:16px;">AI 返回：讲稿 + PPT + 分层任务单 + 课堂提问预案</p>
-    </div>
-
-    <div class="pres-slide">
-      <h2>培训承诺</h2>
-      <p class="big-number">3+</p>
-      <p style="font-size:22px; line-height:1.8;">
-        每位老师将带走<br>
-        至少 3 种可直接使用的 AI 辅助教学工具，<br>
-        和一套适合你们学校的自动化备课工作流。
-      </p>
     </div>
   </div>
 
-  <div class="pres-footer">
-    <button class="pres-btn prev">&#8592; 上一页</button>
-    <div class="pres-progress-wrap">
-      <div class="pres-progress-bar"><div class="pres-progress-bar-fill" style="width:25%"></div></div>
-      <span class="pres-progress-label">方向键或空格翻页 · Esc 退出</span>
-    </div>
-    <button class="pres-btn next">下一页 &#8594;</button>
+  <div class="pres-nav">
+    <button class="pres-prev" onclick="prevSlide()">&#8592;</button>
+    <div class="pres-dots"></div>
+    <button class="pres-next" onclick="nextSlide()">&#8594;</button>
   </div>
-  <div class="pres-keyhints"><kbd>←</kbd><kbd>→</kbd> 翻页 &nbsp; <kbd>Esc</kbd> 退出</div>
 </div>
 
-<script src="../assets/js/main.js"></script>
+<script>
+(function() {
+  var slides = document.querySelectorAll('.pres-slide');
+  var dots = document.querySelector('.pres-dots');
+  var counter = document.querySelector('.pres-counter');
+  var total = slides.length;
+  var current = 0;
+
+  for (var i = 0; i < total; i++) {
+    var d = document.createElement('span');
+    d.className = 'pres-dot';
+    d.onclick = function(idx) { return function() { goTo(idx); }; }(i);
+    dots.appendChild(d);
+  }
+
+  function update() {
+    slides.forEach(function(s, i) {
+      s.classList.toggle('active', i === current);
+    });
+    document.querySelectorAll('.pres-dot').forEach(function(d, i) {
+      d.classList.toggle('active', i === current);
+    });
+    counter.textContent = (current + 1) + ' / ' + total;
+  }
+
+  function nextSlide() { current = (current + 1) % total; update(); }
+  function prevSlide() { current = (current - 1 + total) % total; update(); }
+  function goTo(idx) { current = idx; update(); }
+
+  window.nextSlide = nextSlide;
+  window.prevSlide = prevSlide;
+  window.goTo = goTo;
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') nextSlide();
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+    if (e.key === 'Escape') window.close();
+  });
+
+  update();
+})();
+</script>
 </body>
 </html>
