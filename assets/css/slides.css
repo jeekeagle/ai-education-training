@@ -206,3 +206,51 @@
   border-radius: 3px;
   margin: 0 2px;
 }
+
+/* 底部导航 */
+.pres-nav {
+  height: 52px;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xl);
+  flex-shrink: 0;
+}
+.pres-prev, .pres-next {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.8);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pres-prev:hover, .pres-next:hover {
+  background: rgba(232,168,56,0.3);
+  border-color: var(--color-secondary);
+  color: white;
+}
+.pres-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pres-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pres-dot.active {
+  background: var(--color-secondary);
+  box-shadow: 0 0 0 3px rgba(232,168,56,0.25);
+}
+.pres-dot:hover { background: rgba(255,255,255,0.5); }
