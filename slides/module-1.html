@@ -27,61 +27,113 @@
       <ul>
         <li>第一次工业革命：机器替代体力劳动</li>
         <li>第二次工业革命：电气化大规模生产</li>
-        <li>第三次信息革命：计算机替代重复性脑力劳动</li>
-        <li>这一次 AI：消灭的是「重复性脑力劳动」</li>
+        <li>第三次工业革命：自动化控制</li>
+        <li>第四次工业革命：AI 替代认知劳动</li>
       </ul>
     </div>
 
     <div class="pres-slide">
-      <h2>教育领域中的「重复性脑力劳动」</h2>
-      <p>老师工作中这些最耗时的部分，AI 最擅长</p>
+      <h2>人机关系的三个阶段</h2>
       <ul>
-        <li>备课写稿：写教案、写讲稿、写反思</li>
-        <li>找资料：搜索筛选整理教学素材</li>
-        <li>出卷子：组卷、改卷、写评语</li>
-        <li>改作业：批改、统计、分析</li>
+        <li><strong>Prompt Engineering</strong> — 怎么问 AI</li>
+        <li><strong>Context Engineering</strong> — 怎么给 AI 足够的信息</li>
+        <li><strong>Harness Engineering 驾驭工程</strong> — 人与 AI 的分工边界在哪里</li>
       </ul>
+      <div class="highlight-box">
+        <p>驾驭工程的核心：不是用 AI 替代人，而是用 AI <strong>放大</strong>人的能力</p>
+      </div>
     </div>
 
     <div class="pres-slide">
-      <h2>信息化发展的三个阶段</h2>
+      <h2>教师最需要的三种能力</h2>
       <ul>
-        <li><strong>信息化</strong>：把纸质变成数字（Word 替代手写教案）</li>
-        <li><strong>数字化</strong>：把数据打通流动（教务系统、家校通）</li>
-        <li><strong>智能化</strong>：把判断交给 AI（自动生成、智能推荐）</li>
+        <li><strong>提出好问题的能力</strong> — AI 时代，问对问题比答对问题更重要</li>
+        <li><strong>判断 AI 输出质量的能力</strong> — 识别幻觉、验证事实</li>
+        <li><strong>设计工作流的能力</strong> — 把 AI 嵌入自己的教学流程</li>
       </ul>
-      <p style="margin-top:32px; color: var(--color-secondary); font-size:20px;">我们正站在智能化阶段的起点</p>
     </div>
 
     <div class="pres-slide">
-      <h2>人与 AI 的正确关系</h2>
-      <div class="highlight-box">
-        <p><strong>不是替代，是协同</strong></p>
-        <p style="margin-top:12px;">不是让 AI 替你思考，是让 AI 替你执行</p>
-      </div>
-      <p style="margin-top:32px;">老师的核心竞争力：判断力、价值观、情感连接<br>—— 这些 AI 替代不了</p>
+      <h2>驾驭 AI 的正确姿势</h2>
+      <ul>
+        <li>把 AI 当作一个<strong> tireless research assistant</strong></li>
+        <li>不迷信 AI 的第一输出，把它当作<strong>初稿</strong></li>
+        <li>始终保持<strong>人在回路</strong>，AI 是工具，你才是主人</li>
+        <li>从小任务开始，逐步建立对 AI 的<strong>体感认知</strong></li>
+      </ul>
     </div>
 
     <div class="pres-slide">
-      <h2>核心认知：驾驭工程</h2>
+      <h2>本模块小结</h2>
+      <ul>
+        <li>AI 革命是认知劳动的自动化，教师不会失业，但会用 AI 的教师会替代不会用的</li>
+        <li>驾驭工程 = 知道 AI 擅长什么 + 知道人擅长什么 + 找到最优分工</li>
+        <li>核心心态：<strong>拥抱工具，但不放弃思考</strong></li>
+      </ul>
       <div class="highlight-box">
-        <p>你不需要学会提问，<br>你只需要学会如何让你的 AI 工具<br>理解你的工作。</p>
+        <p>下一节：具体有哪些国产 AI 工具可以用</p>
       </div>
-      <p style="margin-top:24px;">类比：你不需要懂汽车发动机原理才能开车</p>
     </div>
   </div>
 
-  <div class="pres-footer">
-    <button class="pres-btn prev">&#8592; 上一页</button>
-    <div class="pres-progress-wrap">
-      <div class="pres-progress-bar"><div class="pres-progress-bar-fill" style="width:16.6%"></div></div>
-      <span class="pres-progress-label">方向键或空格翻页 · Esc 退出</span>
-    </div>
-    <button class="pres-btn next">下一页 &#8594;</button>
+  <div class="pres-nav">
+    <button class="pres-prev" onclick="prevSlide()">&#8592;</button>
+    <div class="pres-dots"></div>
+    <button class="pres-next" onclick="nextSlide()">&#8594;</button>
   </div>
-  <div class="pres-keyhints"><kbd>←</kbd><kbd>→</kbd> 翻页 &nbsp; <kbd>Esc</kbd> 退出</div>
 </div>
 
-<script src="../assets/js/main.js"></script>
+<script>
+(function() {
+  var slides = document.querySelectorAll('.pres-slide');
+  var dots = document.querySelector('.pres-dots');
+  var counter = document.querySelector('.pres-counter');
+  var total = slides.length;
+  var current = 0;
+
+  // Build dots
+  for (var i = 0; i < total; i++) {
+    var d = document.createElement('span');
+    d.className = 'pres-dot';
+    d.onclick = function(idx) { return function() { goTo(idx); }; }(i);
+    dots.appendChild(d);
+  }
+
+  function update() {
+    slides.forEach(function(s, i) {
+      s.classList.toggle('active', i === current);
+    });
+    document.querySelectorAll('.pres-dot').forEach(function(d, i) {
+      d.classList.toggle('active', i === current);
+    });
+    counter.textContent = (current + 1) + ' / ' + total;
+  }
+
+  function nextSlide() {
+    current = (current + 1) % total;
+    update();
+  }
+  function prevSlide() {
+    current = (current - 1 + total) % total;
+    update();
+  }
+  function goTo(idx) {
+    current = idx;
+    update();
+  }
+
+  window.nextSlide = nextSlide;
+  window.prevSlide = prevSlide;
+  window.goTo = goTo;
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') nextSlide();
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+    if (e.key === 'Escape') window.close();
+  });
+
+  update();
+})();
+</script>
 </body>
 </html>
