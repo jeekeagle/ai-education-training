@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>开发日志 — AI+ 教育教学培训</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/slides.css">
+  <style>
+    /* 开发日志专用样式 */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: var(--color-border);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: var(--space-2xl);
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -28px;
+      top: 8px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--color-secondary);
+      border: 2px solid var(--color-bg);
+      box-shadow: 0 0 0 2px var(--color-secondary);
+    }
+    .timeline-item.active::before {
+      background: var(--color-accent);
+      box-shadow: 0 0 0 2px var(--color-accent);
+    }
+    .timeline-date {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-secondary);
+      margin-bottom: var(--space-xs);
+      font-family: var(--font-mono);
+    }
+    .timeline-tag {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-right: var(--space-xs);
+      font-weight: 500;
+    }
+    .tag-milestone { background: #f39c12; color: white; }
+    .tag-requirement { background: #3498db; color: white; }
+    .tag-deliverable { background: #27ae60; color: white; }
+    .tag-survey { background: #9b59b6; color: white; }
+    .tag-content { background: #e74c3c; color: white; }
+    .tag-tool { background: var(--color-accent); color: white; }
+    .tag-event { background: #e67e22; color: white; }
+
+    .timeline-card {
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      transition: all 0.2s;
+    }
+    .timeline-card:hover {
+      border-color: var(--color-secondary);
+      box-shadow: var(--shadow-sm);
+    }
+    .timeline-title {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: var(--space-md);
+      color: var(--color-text);
+    }
+    .timeline-body {
+      font-size: 14px;
+      color: var(--color-text-dim);
+      line-height: 1.8;
+    }
+    .timeline-body p { margin-bottom: var(--space-sm); }
+    .timeline-body p:last-child { margin-bottom: 0; }
+    .timeline-body strong { color: var(--color-text); font-weight: 600; }
+    .timeline-body ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: var(--space-sm);
+    }
+    .timeline-body ul li {
+      padding: var(--space-xs) 0;
+      padding-left: var(--space-md);
+      position: relative;
+    }
+    .timeline-body ul li::before { content: '·'; position: absolute; left: 0; color: var(--color-secondary); font-weight: 700; }
+    .timeline-outcome {
+      background: var(--color-bg-alt);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin-top: var(--space-md);
+      font-size: 13px;
+    }
+    .timeline-outcome strong { color: var(--color-primary); }
+    .timeline-outcome-label {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-xs);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stats-bar {
+      display: flex;
+      gap: var(--space-xl);
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      margin-bottom: var(--space-2xl);
+    }
+    .stat-item { text-align: center; flex: 1; }
+    .stat-number {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--color-secondary);
+      line-height: 1;
+      margin-bottom: var(--space-xs);
+    }
+    .stat-label { font-size: 13px; color: var(--color-text-muted); }
+    .stat-divider { width: 1px; background: var(--color-border); }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      font-size: 14px;
+      color: var(--color-text-dim);
+      margin-bottom: var(--space-lg);
+    }
+    .back-link:hover { color: var(--color-primary); }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">AI<span>+</span> 教育培训</div>
+  <div class="nav-links">
+    <a href="index.html">返回首页</a>
+    <a href="index.html#modules">课程模块</a>
+    <a href="index.html#tools">工具清单</a>
+    <a href="index.html#materials">推荐材料</a>
+    <a href="index.html#slides">讲座PPT</a>
+    <a href="changelog.html" class="active">开发日志</a>
+  </div>
+  <button class="nav-toggle">&#9776;</button>
+</nav>
+
+<main class="page-content">
+  <div class="container">
+
+    <a href="index.html" class="back-link">&#8592; 返回首页</a>
+
+    <!-- 概览统计 -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-number">1</div>
+        <div class="stat-label">项目启动</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-number">1</div>
+        <div class="stat-label">需求确认</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-number">1</div>
+        <div class="stat-label">问卷已发</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-number">1</div>
+        <div class="stat-label">网站模板完成</div>
+      </div>
+    </div>
+
+    <section>
+      <h2 class="section-title">开发时间线</h2>
+
+      <div class="timeline">
+
+        <!-- 最新 -->
+        <div class="timeline-item active">
+          <div class="timeline-date">2026-04-10</div>
+          <div class="timeline-card">
+            <div class="timeline-title">
+              <span class="timeline-tag tag-tool">工具</span>
+              培训交付网站模板搭建完成
+            </div>
+            <div class="timeline-body">
+              <p>基于 GitHub Pages 的静态网站模板搭建完成，包含以下内容：</p>
+              <ul>
+                <li>首页：课程总览、模块入口、工具清单、材料推荐</li>
+                <li>知识模块页面：三大课程模块详细内容</li>
+                <li>工具清单页面：国产大模型工具推荐</li>
+                <li>推荐材料页面：学习资源索引</li>
+                <li>HTML 格式讲座 PPT：支持键盘翻页的全屏演示</li>
+                <li>开发日志页面：本页面</li>
+              </ul>
+              <div class="timeline-outcome">
+                <div class="timeline-outcome-label">交付物</div>
+                静态网站模板已推送至 GitHub 仓库，可基于此模板定制化专题网站
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 问卷发布 -->
+        <div class="timeline-item">
+          <div class="timeline-date">2026-04-10</div>
+          <div class="timeline-card">
+            <div class="timeline-title">
+              <span class="timeline-tag tag-survey">调研</span>
+              教师AI赋能需求调研问卷正式发布
+            </div>
+            <div class="timeline-body">
+              <p>问卷通过飞书多维表格创建并发布，采集青岛市中小学教师的真实痛点和需求。</p>
+              <p><strong>问卷结构（9个问题，5个维度）：</strong></p>
+              <ul>
+                <li>基本信息：学段、学科、教龄</li>
+                <li>工作负担：时间分配、最耗时的工作</li>
+                <li>AI了解程度：使用现状、认知水平</li>
+                <li>减负期待：最希望被AI替代的工作</li>
+                <li>顾虑与担忧：隐私、安全、可靠性</li>
+              </ul>
+              <div class="timeline-outcome">
+                <div class="timeline-outcome-label">链接</div>
+                问卷链接：https://my.feishu.cn/share/base/shrcnu4KBJYIoKGnzSMEh9JNLbc
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 问卷设计 -->
+        <div class="timeline-item">
+          <div class="timeline-date">2026-04-10</div>
+          <div class="timeline-card">
+            <div class="timeline-title">
+              <span class="timeline-tag tag-survey">调研</span>
+              需求调研问卷设计完成
+            </div>
+            <div class="timeline-body">
+              <p>完成需求调研问卷初稿设计，问卷维度覆盖：</p>
+              <ul>
+                <li>教师日常工作负担分布</li>
+                <li>对AI工具的了解程度和使用现状</li>
+                <li>最希望被AI替代的工作类型</li>
+                <li>对AI的顾虑和担忧</li>
+                <li>基本信息（学段、学科、教龄）</li>
+              </ul>
+              <p>问卷采用飞书多维表格作为承载，支持数据自动汇总分析。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 需求确认 -->
+        <div class="timeline-item">
+          <div class="timeline-date">2026-04-10</div>
+          <div class="timeline-card">
+            <div class="timeline-title">
+              <span class="timeline-tag tag-requirement">需求</span>
+              项目需求正式确认
+            </div>
+            <div class="timeline-body">
+              <p>与委托方确认项目核心需求：</p>
+              <ul>
+                <li><strong>目标人群</strong>：青岛市中小学教师</li>
+                <li><strong>核心目标</strong>：帮助教师借助AI工具减负增效</li>
+                <li><strong>交付形态</strong>：2小时现场讲座 + 工具交付 + 工作流培训</li>
+                <li><strong>地域限制</strong>：必须使用国产大模型环境，教师无需魔法上网</li>
+                <li><strong>讲座结构</strong>：价值引导 25-30min → 工具展示 30min → 实操演练 60min</li>
+              </ul>
+              <div class="timeline-outcome">
+                <div class="timeline-outcome-label">关键决策</div>
+                培训教工具使用，不教提示词；国产大模型环境是硬性约束
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 项目启动 -->
+        <div class="timeline-item">
+          <div class="timeline-date">2026-04-10</div>
+          <div class="timeline-card">
+            <div class="timeline-title">
+              <span class="timeline-tag tag-milestone">启动</span>
+              AI+ 教育教学实践项目正式启动
+            </div>
+            <div class="timeline-body">
+              <p>项目正式启动，定位为面向青岛市教育系统的教师AI赋能培训项目。</p>
+              <p><strong>项目本质</strong>：讲座项目，不是技术开发项目。核心是传递认知和方法论，工具是载体。</p>
+              <p><strong>方法论框架</strong>：三层交付 —— 认知重构 → 方法论 → 工具+演示</p>
+              <p><strong>人与AI关系主线</strong>：从 Prompt Engineering 到 Context Engineering，再到 Harness Engineering（驾驭工程）</p>
+              <div class="timeline-outcome">
+                <div class="timeline-outcome-label">起点</div>
+                项目信息已在 Obsidian 知识库中归档（Theo-Project/01-AI-Education-Teaching-Practice）
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <p>AI+ 教育教学培训 · 青岛市教育系统 · 开发日志</p>
+  <p style="margin-top:8px;">最后更新：2026-04-10</p>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
