@@ -1,0 +1,208 @@
+/* ========================================
+   幻灯片展示样式
+   ======================================== */
+
+/* 全屏幻灯片容器 */
+.presentation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #0f0f1a;
+  z-index: 2000;
+  display: none;
+  flex-direction: column;
+}
+
+.presentation.active { display: flex; }
+
+/* 顶部状态栏 */
+.pres-header {
+  height: 48px;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-lg);
+  flex-shrink: 0;
+}
+.pres-title { color: white; font-size: 14px; font-weight: 500; }
+.pres-counter { color: rgba(255,255,255,0.6); font-family: var(--font-mono); font-size: 13px; }
+.pres-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pres-close:hover { background: rgba(255,255,255,0.2); }
+
+/* 幻灯片区域 */
+.pres-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2xl);
+  overflow: hidden;
+}
+
+.pres-slide {
+  display: none;
+  width: 100%;
+  max-width: 1100px;
+  text-align: center;
+  color: white;
+  animation: fadeIn 0.3s ease;
+}
+.pres-slide.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pres-slide h1 {
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-bottom: var(--space-lg);
+  background: linear-gradient(135deg, #ffffff 0%, #e8a838 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pres-slide h2 {
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--color-secondary);
+  margin-bottom: var(--space-xl);
+}
+
+.pres-slide h3 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: var(--space-lg);
+  color: rgba(255,255,255,0.9);
+}
+
+.pres-slide p {
+  font-size: 22px;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.8);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.pres-slide ul {
+  list-style: none;
+  text-align: left;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.pres-slide ul li {
+  font-size: 20px;
+  line-height: 1.8;
+  padding: var(--space-sm) 0;
+  color: rgba(255,255,255,0.85);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+.pres-slide ul li::before { content: "◆"; color: var(--color-secondary); flex-shrink: 0; margin-top: 4px; }
+
+.pres-slide .big-number {
+  font-size: 120px;
+  font-weight: 700;
+  color: var(--color-secondary);
+  line-height: 1;
+  margin-bottom: var(--space-lg);
+}
+
+.pres-slide .subtitle {
+  font-size: 24px;
+  color: rgba(255,255,255,0.6);
+  margin-top: var(--space-md);
+}
+
+.pres-slide .highlight-box {
+  background: rgba(232,168,56,0.15);
+  border: 1px solid rgba(232,168,56,0.3);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  margin: var(--space-lg) auto;
+  max-width: 700px;
+  text-align: left;
+}
+.pres-slide .highlight-box p { font-size: 20px; }
+
+/* 幻灯片底部控制栏 */
+.pres-footer {
+  height: 72px;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xl);
+  padding: 0 var(--space-2xl);
+  flex-shrink: 0;
+}
+
+.pres-btn {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: var(--space-sm) var(--space-xl);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+.pres-btn:hover { background: var(--color-secondary); border-color: var(--color-secondary); }
+.pres-btn.primary { background: var(--color-primary); border-color: var(--color-primary); }
+
+.pres-progress-wrap {
+  flex: 1;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.pres-progress-bar {
+  height: 3px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.pres-progress-bar-fill {
+  height: 100%;
+  background: var(--color-secondary);
+  transition: width 0.3s;
+}
+.pres-progress-label { font-size: 11px; color: rgba(255,255,255,0.5); text-align: center; }
+
+/* 键盘提示 */
+.pres-keyhints {
+  position: fixed;
+  bottom: 80px;
+  right: var(--space-xl);
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  text-align: right;
+}
+.pres-keyhints kbd {
+  background: rgba(255,255,255,0.1);
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin: 0 2px;
+}
