@@ -513,6 +513,197 @@ button.theme-toggle:hover {
   margin-top: 8px;
 }
 
+/* === INTRO OVERLAY === */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(160deg, #060c14 0%, #0a1628 50%, #060c14 100%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: introReveal 1s cubic-bezier(0.16,1,0.3,1) forwards;
+  overflow: hidden;
+}
+.intro-overlay.hidden {
+  display: none;
+}
+.intro-overlay.closing {
+  animation: introHide 0.5s ease forwards;
+}
+
+@keyframes introReveal {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes introHide {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(1.04); }
+}
+
+/* particles */
+.intro-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.intro-p {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(232,164,69,0.7);
+  animation: floatP var(--d,8s) ease-in-out infinite;
+  box-shadow: 0 0 6px rgba(232,164,69,0.5);
+}
+@keyframes floatP {
+  0%   { transform: translateY(0)   scale(1);   opacity: 0.6; }
+  50%  { transform: translateY(-120px) scale(1.3); opacity: 1; }
+  100% { transform: translateY(-240px) scale(0.5); opacity: 0; }
+}
+
+/* vr icon */
+.intro-vr {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin-bottom: 40px;
+  animation: vrEntrance 1.2s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+@keyframes vrEntrance {
+  from { opacity: 0; transform: translateY(40px) scale(0.8); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.vr-ring {
+  position: absolute;
+  border: 2px solid rgba(232,164,69,0.25);
+  border-radius: 50%;
+  animation: ringPulse var(--d,3s) ease-in-out infinite;
+}
+.vr-ring:nth-child(1) { inset: 0;   --d: 3s; animation-delay: 0s; }
+.vr-ring:nth-child(2) { inset: -16px; --d: 3.5s; animation-delay: 0.6s; }
+.vr-ring:nth-child(3) { inset: -32px; --d: 4s;   animation-delay: 1.2s; }
+.vr-ring:nth-child(4) { inset: -48px; --d: 4.5s; animation-delay: 1.8s; }
+@keyframes ringPulse {
+  0%,100% { opacity: 0.3; transform: scale(1); }
+  50%      { opacity: 0.8; transform: scale(1.04); }
+}
+.vr-core {
+  position: absolute;
+  inset: 28px;
+  background: linear-gradient(135deg, #e8a445, #c4780a);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  box-shadow: 0 0 40px rgba(232,164,69,0.5), 0 0 80px rgba(232,164,69,0.2);
+}
+
+/* text */
+.intro-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: rgba(232,164,69,0.7);
+  letter-spacing: 4px;
+  margin-bottom: 16px;
+  animation: fadeUp 0.8s 0.4s both;
+}
+.intro-title {
+  font-family: var(--font-mono);
+  font-size: clamp(28px, 6vw, 52px);
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  animation: fadeUp 0.8s 0.55s both;
+  letter-spacing: -0.5px;
+}
+.intro-title em {
+  font-style: normal;
+  background: linear-gradient(90deg, #e8a445, #f5c76a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.intro-sub {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  max-width: 460px;
+  line-height: 1.8;
+  margin-bottom: 52px;
+  animation: fadeUp 0.8s 0.7s both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* enter button */
+.intro-enter {
+  background: transparent;
+  border: 1.5px solid rgba(232,164,69,0.5);
+  color: #e8a445;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 2px;
+  padding: 14px 44px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  animation: fadeUp 0.8s 0.85s both;
+  text-transform: uppercase;
+}
+.intro-enter:hover {
+  background: rgba(232,164,69,0.12);
+  border-color: #e8a445;
+  box-shadow: 0 0 30px rgba(232,164,69,0.3);
+  transform: translateY(-2px);
+}
+
+/* close hint */
+.intro-close-hint {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 1px;
+  cursor: pointer;
+  padding: 6px 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 3px;
+  transition: color 0.2s, border-color 0.2s;
+  animation: fadeUp 0.6s 1.2s both;
+  user-select: none;
+}
+.intro-close-hint:hover { color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.2); }
+
+/* page reopen button */
+.intro-reopen-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 500;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 3px;
+  padding: 5px 10px;
+  cursor: pointer;
+  display: none;
+  transition: all 0.2s;
+  letter-spacing: 1px;
+}
+.intro-reopen-btn:hover { color: #e8a445; border-color: rgba(232,164,69,0.3); }
+.intro-reopen-btn.show { display: block; }
+
 /* === FOOTER === */
 footer {
   margin-top: 40px;
@@ -543,6 +734,24 @@ footer a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
+<!-- INTRO OVERLAY -->
+<div class="intro-overlay" id="introOverlay">
+  <div class="intro-particles" id="introParticles"></div>
+  <div class="intro-close-hint" id="introCloseHint">&#x2715; 关闭</div>
+  <div class="intro-vr">
+    <div class="vr-ring"></div>
+    <div class="vr-ring"></div>
+    <div class="vr-ring"></div>
+    <div class="vr-ring"></div>
+    <div class="vr-core">&#128303;</div>
+  </div>
+  <div class="intro-eyebrow">// AI + EDUCATION</div>
+  <div class="intro-title">欢迎进入<br><em>VR 认知时代</em></div>
+  <div class="intro-sub">人工智能正在重塑知识的获取方式。<br>这一次，我们一起驾驭它。</div>
+  <button class="intro-enter" id="introEnterBtn">进入课程</button>
+</div>
+<button class="intro-reopen-btn" id="introReopenBtn">&#128303; VR 引导页</button>
+
 <div class="container">
 
 <header>
@@ -770,7 +979,14 @@ footer a:hover { text-decoration: underline; }
 <script>
 (function() {
   var KEY = 'course-theme';
+  var INTRO_KEY = 'intro-seen-v2';
   var btn = document.getElementById('themeToggle');
+  var overlay = document.getElementById('introOverlay');
+  var particles = document.getElementById('introParticles');
+  var enterBtn = document.getElementById('introEnterBtn');
+  var closeHint = document.getElementById('introCloseHint');
+  var reopenBtn = document.getElementById('introReopenBtn');
+
   function setTheme(t) {
     document.documentElement.setAttribute('data-theme', t);
     localStorage.setItem(KEY, t);
@@ -784,6 +1000,58 @@ footer a:hover { text-decoration: underline; }
   if (saved) { setTheme(saved); }
   else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) { setTheme('light'); }
   btn.addEventListener('click', toggleTheme);
+
+  /* ── Intro overlay ── */
+  function buildParticles() {
+    for (var i = 0; i < 22; i++) {
+      var p = document.createElement('div');
+      p.className = 'intro-p';
+      var sz = Math.random() * 4 + 2;
+      p.style.cssText = [
+        'width:' + sz + 'px',
+        'height:' + sz + 'px',
+        'left:' + (Math.random() * 100) + '%',
+        'bottom:' + (Math.random() * 60) + '%',
+        '--d:' + (Math.random() * 6 + 5) + 's',
+        'animation-delay:' + (Math.random() * 5) + 's',
+        'animation-duration:' + (Math.random() * 4 + 6) + 's'
+      ].join(';');
+      particles.appendChild(p);
+    }
+  }
+
+  function showIntro() {
+    overlay.classList.remove('hidden', 'closing');
+    reopenBtn.classList.remove('show');
+  }
+
+  function hideIntro(animate) {
+    if (animate) {
+      overlay.classList.add('closing');
+      overlay.addEventListener('animationend', function() {
+        overlay.classList.add('hidden');
+        overlay.classList.remove('closing');
+        reopenBtn.classList.add('show');
+      }, { once: true });
+    } else {
+      overlay.classList.add('hidden');
+      reopenBtn.classList.add('show');
+    }
+    localStorage.setItem(INTRO_KEY, '1');
+  }
+
+  buildParticles();
+
+  if (!localStorage.getItem(INTRO_KEY)) {
+    showIntro();
+  } else {
+    overlay.classList.add('hidden');
+    reopenBtn.classList.add('show');
+  }
+
+  enterBtn.addEventListener('click', function() { hideIntro(true); });
+  closeHint.addEventListener('click', function() { hideIntro(true); });
+  reopenBtn.addEventListener('click', showIntro);
 })();
 </script>
 </body>
