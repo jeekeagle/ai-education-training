@@ -1,384 +1,790 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-version="v1.0">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI+ 教育教学培训 — 青岛市中小学教师AI赋能培训</title>
-  <meta name="description" content="帮助中小学教师借助AI工具减负增效，通过系统性培训掌握AI辅助教学的工作方法。">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/slides.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI+ 课程交付</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:          #080d14;
+  --bg-card:     #0c1422;
+  --bg-hover:    #101d30;
+  --border:      #1a2d45;
+  --accent:      #e8a445;
+  --accent2:     #4a9eff;
+  --accent3:     #4ae8a4;
+  --text:        #dce8f0;
+  --text-dim:    #8aacc8;
+  --text-muted:  #4a6a8a;
+  --font-mono:   'JetBrains Mono', monospace;
+  --font-sans:   'Noto Sans SC', sans-serif;
+  --accent-dim:  rgba(232,164,69,0.1);
+  --radius:      6px;
+}
+[data-theme="light"] {
+  --bg:        #f5f5f0;
+  --bg-card:   #ffffff;
+  --bg-hover:  #efefea;
+  --border:    #d8d8d0;
+  --accent:    #c4780a;
+  --accent2:   #2563eb;
+  --accent3:   #16a34a;
+  --text:      #111110;
+  --text-dim:  #444440;
+  --text-muted:#888880;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(26,45,69,0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,45,69,0.3) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* === HEADER === */
+header {
+  position: relative;
+  margin-bottom: 56px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+}
+.header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 0;
+}
+.header-label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent);
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+header h1 {
+  font-family: var(--font-mono);
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 600;
+  letter-spacing: -1px;
+  margin-bottom: 14px;
+}
+header h1 .w { color: var(--accent); }
+header h1 .t { color: var(--text-dim); font-weight: 300; }
+
+.header-desc {
+  font-size: 15px;
+  color: var(--text-dim);
+  max-width: 520px;
+  font-weight: 300;
+  line-height: 1.8;
+}
+.header-meta {
+  display: flex;
+  gap: 24px;
+  margin-top: 20px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+.header-meta span { display: flex; align-items: center; gap: 6px; }
+
+.top-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+.top-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-dim);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 5px 12px;
+  background: rgba(255,255,255,0.02);
+  transition: all 0.2s ease;
+}
+.top-nav a::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: -1;
+  border-radius: var(--radius);
+}
+.top-nav a:hover {
+  color: #fff;
+  border-color: transparent;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(232,164,69,0.25);
+}
+.top-nav a:hover::before { opacity: 1; }
+
+button.theme-toggle {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 5px 10px;
+  cursor: pointer;
+  color: var(--text-dim);
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+button.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+
+/* === OVERVIEW CARD === */
+.overview-banner {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  margin-bottom: 48px;
+  position: relative;
+  overflow: hidden;
+}
+.overview-banner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+}
+.overview-banner .label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+.overview-banner h2 {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.overview-banner p {
+  font-size: 14px;
+  color: var(--text-dim);
+  font-weight: 300;
+  max-width: 640px;
+  line-height: 1.8;
+}
+.overview-tags {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.overview-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 3px;
+  background: rgba(232,164,69,0.1);
+  border: 1px solid rgba(232,164,69,0.25);
+  color: var(--accent);
+}
+
+/* === SECTION LABEL === */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* === MODULE CARDS === */
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.mod-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+.mod-card:hover {
+  border-color: var(--accent);
+  background: var(--bg-hover);
+  transform: translateY(-2px);
+}
+.mod-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--card-accent, var(--accent));
+}
+.mod-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.mod-num {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--card-accent, var(--accent));
+  opacity: 0.7;
+  line-height: 1;
+}
+.mod-title {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.5px;
+}
+.mod-time {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.mod-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  font-weight: 300;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.mod-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.mod-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 2px;
+  background: rgba(74,158,255,0.1);
+  border: 1px solid rgba(74,158,255,0.2);
+  color: var(--accent2);
+}
+
+/* === TOOLS GRID === */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 48px;
+}
+.tool-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.tool-card:hover {
+  border-color: var(--accent2);
+  background: var(--bg-hover);
+}
+.tool-card h4 {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tool-card .tool-badges { display: flex; gap: 4px; margin-left: auto; }
+.tool-badge {
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+.tool-badge.cn { background: rgba(231,76,60,0.15); border: 1px solid rgba(231,76,60,0.3); color: #e74c3c; }
+.tool-badge.free { background: rgba(74,232,164,0.12); border: 1px solid rgba(74,232,164,0.25); color: var(--accent3); }
+.tool-card p { font-size: 12px; color: var(--text-dim); font-weight: 300; }
+
+/* === MATERIALS === */
+.materials-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 48px;
+}
+.mat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  transition: border-color 0.2s, background 0.2s;
+}
+.mat-card:hover { border-color: var(--accent); background: var(--bg-hover); }
+.mat-icon {
+  width: 36px; height: 36px;
+  border-radius: 4px;
+  background: var(--accent-dim);
+  border: 1px solid rgba(232,164,69,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.mat-body h4 {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.mat-body p { font-size: 12px; color: var(--text-dim); font-weight: 300; }
+.mat-body .mat-meta { font-size: 11px; color: var(--text-muted); margin-top: 6px; font-family: var(--font-mono); }
+
+/* === CHANGELOG PREVIEW === */
+.changelog-preview {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 48px;
+}
+.changelog-preview h3 {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+}
+.timeline { position: relative; padding-left: 20px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 5px; top: 6px; bottom: 6px;
+  width: 1px;
+  background: var(--border);
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 16px;
+  padding-left: 16px;
+}
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -17px; top: 7px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 1.5px solid var(--bg);
+  box-shadow: 0 0 0 1.5px var(--accent);
+}
+.tl-item:last-child { margin-bottom: 0; }
+.tl-date {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+.tl-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+.tl-title .tl-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 2px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.tl-tag.milestone { background: rgba(243,156,18,0.15); border: 1px solid rgba(243,156,18,0.3); color: #f39c12; }
+.tl-tag.requirement { background: rgba(52,152,219,0.15); border: 1px solid rgba(52,152,219,0.3); color: #3498db; }
+.tl-tag.survey { background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.3); color: #9b59b6; }
+.tl-tag.deliverable { background: rgba(74,232,164,0.12); border: 1px solid rgba(74,232,164,0.25); color: var(--accent3); }
+.tl-tag.tool { background: rgba(74,158,255,0.12); border: 1px solid rgba(74,158,255,0.25); color: var(--accent2); }
+.tl-body {
+  font-size: 12px;
+  color: var(--text-dim);
+  font-weight: 300;
+  margin-top: 4px;
+}
+.changelog-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent2);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.changelog-link:hover { color: #7dbfff; text-decoration: underline; }
+
+/* === SLIDES CTA === */
+.slides-cta {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.slide-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  color: var(--text);
+  display: block;
+}
+.slide-card:hover {
+  border-color: var(--accent);
+  background: var(--bg-hover);
+  transform: translateY(-2px);
+}
+.slide-card-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+.slide-card h4 {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.slide-card p { font-size: 12px; color: var(--text-dim); font-weight: 300; }
+.slide-card .slide-card-status {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent);
+  margin-top: 8px;
+}
+
+/* === FOOTER === */
+footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+footer a { color: var(--accent2); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .modules-grid { grid-template-columns: 1fr; }
+  .tools-grid { grid-template-columns: 1fr 1fr; }
+  .slides-cta { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .tools-grid { grid-template-columns: 1fr; }
+  .materials-grid { grid-template-columns: 1fr; }
+  .header-meta { flex-direction: column; gap: 8px; }
+  .top-nav a { font-size: 11px; padding: 4px 10px; }
+}
+</style>
 </head>
 <body>
+<div class="container">
 
-<!-- 导航 -->
-<nav class="nav">
-  <div class="nav-logo">AI<span>+</span> 教育培训</div>
-  <div class="nav-links">
-    <a href="#modules" class="active">课程模块</a>
-    <a href="#tools">工具清单</a>
-    <a href="#materials">推荐材料</a>
-    <a href="#slides">讲座PPT</a>
-    <a href="#resources">下载资源</a>
-  </div>
-  <button class="nav-toggle">&#9776;</button>
-</nav>
-
-<!-- 主内容 -->
-<main class="page-content">
-  <div class="container">
-
-    <!-- Hero -->
-    <section class="hero">
-      <span class="hero-badge">2026 年度培训课程</span>
-      <h1>AI 赋能教育教学培训</h1>
-      <p>帮助中小学教师借助 AI 工具减负增效，掌握人机协同的正确姿势，让 AI 成为教学的得力助手。</p>
-      <div class="hero-meta">
+<header>
+  <div class="header-top">
+    <div>
+      <div class="header-label">// course.delivery</div>
+      <h1><span class="w">AI</span><span class="t">+</span> <span class="t">课程交付</span></h1>
+      <p class="header-desc">帮助教育工作者借助 AI 工具减负增效，掌握人机协同的正确姿势，让 AI 成为教学的得力助手。</p>
+      <div class="header-meta">
         <span>&#128218; 3 大模块</span>
-        <span>&#128268; 约 2 小时</span>
-        <span>&#127757; 青岛市教育系统</span>
+        <span>&#9202; 约 2 小时</span>
+        <span>&#127757; 课程交付站</span>
       </div>
-    </section>
-
-    <!-- 课程模块 -->
-    <section id="modules">
-      <h2 class="section-title">课程模块</h2>
-      <div class="module-list">
-        <div class="module-item">
-          <div class="module-num">01</div>
-          <div class="module-info">
-            <h3>价值引导</h3>
-            <p>工业革命视角下的AI变革、人与AI的正确关系、驾驭工程基础概念</p>
-          </div>
-          <span class="module-time">25-30 分钟</span>
-        </div>
-        <div class="module-item">
-          <div class="module-num">02</div>
-          <div class="module-info">
-            <h3>工具与工作流</h3>
-            <p>国产大模型环境推荐、自动化备课工具链、快捷搜索与信息素养</p>
-          </div>
-          <span class="module-time">30 分钟</span>
-        </div>
-        <div class="module-item">
-          <div class="module-num">03</div>
-          <div class="module-info">
-            <h3>实操演练</h3>
-            <p>现场设计演示工作流、工具交付、个性化问题答疑</p>
-          </div>
-          <span class="module-time">60 分钟</span>
-        </div>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- 核心知识要点 -->
-    <section>
-      <h2 class="section-title">核心知识要点</h2>
-      <ul class="knowledge-list">
-        <li>
-          <span class="tag tag-primary">工业革命</span>
-          消灭的是「重复性脑力劳动」—— 备课写稿、改作业、出卷子、找资料，这些是AI最擅长的事
-        </li>
-        <li>
-          <span class="tag tag-secondary">人机关系</span>
-          协同而非替代。老师的核心竞争力：判断力、价值观、情感连接 —— AI 替代不了
-        </li>
-        <li>
-          <span class="tag tag-accent">驾驭工程</span>
-          你不需要学会提问，你只需要学会如何让你的 AI 工具理解你的工作
-        </li>
-        <li>
-          <span class="tag tag-primary">工具交付</span>
-          国产大模型环境，老师可直接使用，不需要魔法上网
-        </li>
-      </ul>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- 工具清单 -->
-    <section id="tools">
-      <h2 class="section-title">推荐工具清单</h2>
-      <div class="tool-grid">
-        <div class="tool-card">
-          <h4>通义千问 <span class="tag-china">国产</span> <span class="tag-free">免费</span></h4>
-          <p>阿里巴巴国产大模型，支持多轮对话与文档分析，适合日常备课</p>
-        </div>
-        <div class="tool-card">
-          <h4>文心一言 <span class="tag-china">国产</span> <span class="tag-free">免费</span></h4>
-          <p>百度国产大模型，擅长中文理解与创作，可用于生成教学内容</p>
-        </div>
-        <div class="tool-card">
-          <h4>Kimi <span class="tag-china">国产</span> <span class="tag-free">免费</span></h4>
-          <p>支持超长上下文分析，可一次性读取整本教材或长文档</p>
-        </div>
-        <div class="tool-card">
-          <h4>秘塔搜索 <span class="tag-china">国产</span> <span class="tag-free">免费</span></h4>
-          <p>无广告的中文AI搜索工具，帮助老师快速查找教学资料</p>
-        </div>
-        <div class="tool-card">
-          <h4>讯飞听见 <span class="tag-china">国产</span></h4>
-          <p>语音转文字工具，老师口述即可生成文字稿，再也不用手动打字</p>
-        </div>
-        <div class="tool-card">
-          <h4>iSlide <span class="tag-free">免费基础版</span></h4>
-          <p>PPT辅助插件，一键换色、统一字体、智能排版，大幅提升课件制作效率</p>
-        </div>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- 推荐材料 -->
-    <section id="materials">
-      <h2 class="section-title">推荐学习材料</h2>
-      <div class="material-grid">
-        <div class="material-card">
-          <div class="material-cover">&#128218;</div>
-          <div class="material-body">
-            <h4>《驾驭工程：人机协同新范式》</h4>
-            <p>从提示词工程到上下文工程，再到驾驭工程的演进脉络</p>
-            <div class="material-meta">
-              <span>&#128214; 电子文档</span>
-              <span>&#128337; 约 20 分钟</span>
-            </div>
-          </div>
-        </div>
-        <div class="material-card">
-          <div class="material-cover">&#127912;</div>
-          <div class="material-body">
-            <h4>《AI 工具实操手册》</h4>
-            <p>国产大模型工具从注册到精通的完整指南，配有截图步骤</p>
-            <div class="material-meta">
-              <span>&#128196; PDF 文档</span>
-              <span>&#128337; 约 40 分钟</span>
-            </div>
-          </div>
-        </div>
-        <div class="material-card">
-          <div class="material-cover">&#128202;</div>
-          <div class="material-body">
-            <h4>《备课工作流实战案例》</h4>
-            <p>5 个真实备课场景，从输入到交付物的完整演示</p>
-            <div class="material-meta">
-              <span>&#127916; 视频 + 文档</span>
-              <span>&#128337; 约 60 分钟</span>
-            </div>
-          </div>
-        </div>
-        <div class="material-card">
-          <div class="material-cover">&#128640;</div>
-          <div class="material-body">
-            <h4>《教师AI工具清单》</h4>
-            <p>20+ 款适合教师使用的AI工具清单，按场景分类</p>
-            <div class="material-meta">
-              <span>&#128196; Excel 清单</span>
-              <span>&#128337; 持续更新</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- 讲座 PPT -->
-    <section id="slides">
-      <h2 class="section-title">讲座幻灯片</h2>
-      <p class="text-muted mb-lg">以下为现场讲座使用的 HTML 格式幻灯片，可直接浏览器打开演示。</p>
-
-      <div class="card-grid">
-        <div class="card">
-          <div class="card-icon">&#127774;</div>
-          <h3>模块一：价值引导</h3>
-          <p>工业革命视角、AI与教育的关系、人与AI的正确姿势</p>
-          <a href="slides/module-1.html" class="card-link">打开幻灯片 &#8594;</a>
-        </div>
-        <div class="card">
-          <div class="card-icon">&#9881;</div>
-          <h3>模块二：工具与工作流</h3>
-          <p>国产大模型环境、驾驭工程方法、备课自动化演示</p>
-          <a href="slides/module-2.html" class="card-link">打开幻灯片 &#8594;</a>
-        </div>
-        <div class="card">
-          <div class="card-icon">&#9997;</div>
-          <h3>模块三：实操演练</h3>
-          <p>现场工作流设计、工具交付、答疑环节</p>
-          <a href="slides/module-3.html" class="card-link">打开幻灯片 &#8594;</a>
-        </div>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- 下载资源 -->
-    <section id="resources">
-      <h2 class="section-title">下载资源</h2>
-      <div class="resource-list">
-        <div class="resource-item">
-          <div class="resource-info">
-            <span class="resource-icon">&#128196;</span>
-            <span class="resource-name">AI 工具清单（完整版）</span>
-            <span class="resource-size">.xlsx · 持续更新</span>
-          </div>
-          <button class="resource-btn" onclick="alert('资源包下载中...')">下载</button>
-        </div>
-        <div class="resource-item">
-          <div class="resource-info">
-            <span class="resource-icon">&#128221;</span>
-            <span class="resource-name">培训讲义（全文）</span>
-            <span class="resource-size">.pdf · 约 2MB</span>
-          </div>
-          <button class="resource-btn" onclick="alert('资源包下载中...')">下载</button>
-        </div>
-        <div class="resource-item">
-          <div class="resource-info">
-            <span class="resource-icon">&#128218;</span>
-            <span class="resource-name">推荐书单与学习路径</span>
-            <span class="resource-size">.pdf · 约 500KB</span>
-          </div>
-          <button class="resource-btn" onclick="alert('资源包下载中...')">下载</button>
-        </div>
-        <div class="resource-item">
-          <div class="resource-info">
-            <span class="resource-icon">&#128640;</span>
-            <span class="resource-name">工具安装包（离线版）</span>
-            <span class="resource-size">.zip · 约 15MB</span>
-          </div>
-          <button class="resource-btn" onclick="alert('资源包下载中...')">下载</button>
-        </div>
-      </div>
-    </section>
-
+      <nav class="top-nav">
+        <a href="#modules">课程模块</a>
+        <a href="#tools">工具清单</a>
+        <a href="#materials">推荐材料</a>
+        <a href="changelog.html">开发日志</a>
+      </nav>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="切换主题">☀</button>
   </div>
-</main>
+</header>
 
-<!-- 全屏演示用幻灯片（所有模块合并） -->
-<div class="presentation">
-  <div class="pres-header">
-    <span class="pres-title">AI+ 教育教学培训</span>
-    <span class="pres-counter">1 / 12</span>
-    <button class="pres-close">&#10005;</button>
+<!-- OVERVIEW -->
+<section class="overview-banner" id="overview">
+  <div class="label">// overview</div>
+  <h2>课程概述</h2>
+  <p>本课程面向教育工作者，系统讲解 AI 工具在教学场景中的实际应用。课程采用"认知重构 + 方法论 + 实操"三层交付结构，帮助教师建立正确的人机协同观，掌握可直接落地的工具和方法。</p>
+  <div class="overview-tags">
+    <span class="overview-tag">价值引导</span>
+    <span class="overview-tag">国产大模型</span>
+    <span class="overview-tag">驾驭工程</span>
+    <span class="overview-tag">实操演练</span>
+    <span class="overview-tag">工具交付</span>
   </div>
+</section>
 
-  <div class="pres-stage">
-    <!-- 模块一 -->
-    <div class="pres-slide slide-set-1 active">
-      <h1>价值引导</h1>
-      <p class="subtitle">理解时代背景，建立正确认知</p>
-    </div>
-    <div class="pres-slide slide-set-1">
-      <h2>工业革命视角下的 AI 变革</h2>
-      <p>每次工业革命都消灭一批岗位、创造一批岗位</p>
-      <ul>
-        <li>第一次工业革命：机器替代体力劳动</li>
-        <li>第二次工业革命：电气化大规模生产</li>
-        <li>第三次信息革命：计算机替代重复性脑力劳动</li>
-        <li>这一次 AI：消灭的是「重复性脑力劳动」</li>
-      </ul>
-    </div>
-    <div class="pres-slide slide-set-1">
-      <h2>教育领域中的「重复性脑力劳动」</h2>
-      <p>老师工作中这些最耗时的部分，AI 最擅长</p>
-      <ul>
-        <li>备课写稿：写教案、写讲稿、写反思</li>
-        <li>找资料：搜索筛选整理教学素材</li>
-        <li>出卷子：组卷、改卷、写评语</li>
-        <li>改作业：批改、统计、分析</li>
-      </ul>
-    </div>
-    <div class="pres-slide slide-set-1">
-      <h2>信息化发展的三个阶段</h2>
-      <ul>
-        <li><strong>信息化</strong>：把纸质变成数字（Word 替代手写教案）</li>
-        <li><strong>数字化</strong>：把数据打通流动（教务系统、家校通）</li>
-        <li><strong>智能化</strong>：把判断交给 AI（自动生成、智能推荐）</li>
-      </ul>
-      <p style="margin-top:24px; color: var(--color-secondary);">我们正站在智能化阶段的起点</p>
-    </div>
-    <div class="pres-slide slide-set-1">
-      <h2>人与 AI 的正确关系</h2>
-      <div class="highlight-box">
-        <p><strong>不是替代，是协同</strong></p>
-        <p style="margin-top:12px;">不是让 AI 替你思考，是让 AI 替你执行</p>
+<!-- MODULES -->
+<section id="modules" style="margin-bottom:48px;">
+  <div class="section-label">// course.modules</div>
+  <div class="modules-grid">
+    <div class="mod-card" style="--card-accent: #e8a445">
+      <div class="mod-card-header">
+        <div class="mod-num">01</div>
+        <div>
+          <div class="mod-title">价值引导</div>
+          <div class="mod-time">25-30 分钟</div>
+        </div>
       </div>
-      <p style="margin-top:24px;">老师的核心竞争力：判断力、价值观、情感连接 ——<br>这些 AI 替代不了</p>
+      <p class="mod-desc">从工业革命视角理解 AI 变革，认识人与 AI 的正确关系，建立驾驭 AI 的底层认知框架。</p>
+      <div class="mod-tags">
+        <span class="mod-tag">工业革命</span>
+        <span class="mod-tag">人机协同</span>
+        <span class="mod-tag">驾驭工程</span>
+      </div>
     </div>
 
-    <!-- 模块二 -->
-    <div class="pres-slide slide-set-2">
-      <h1>工具与工作流</h1>
-      <p class="subtitle">国产大模型环境 · 驾驭工程方法 · 自动化备课</p>
-    </div>
-    <div class="pres-slide slide-set-2">
-      <h2>驾驭工程（Harness Engineering）</h2>
-      <div class="highlight-box">
-        <p>你不需要学会提问，<br>你只需要学会如何让你的 AI 工具<br>理解你的工作。</p>
+    <div class="mod-card" style="--card-accent: #4a9eff">
+      <div class="mod-card-header">
+        <div class="mod-num">02</div>
+        <div>
+          <div class="mod-title">工具与工作流</div>
+          <div class="mod-time">30 分钟</div>
+        </div>
       </div>
-      <p style="margin-top:16px;">类比：你不需要懂汽车发动机原理才能开车</p>
-    </div>
-    <div class="pres-slide slide-set-2">
-      <h2>国产大模型工具推荐</h2>
-      <ul>
-        <li><strong>通义千问</strong>（阿里）— 日常备课、多轮对话</li>
-        <li><strong>文心一言</strong>（百度）— 中文创作、内容生成</li>
-        <li><strong>Kimi</strong>（月之暗面）— 长文档分析、超长上下文</li>
-        <li><strong>秘塔搜索</strong> — 无广告 AI 搜索，找资料必备</li>
-        <li><strong>讯飞听见</strong> — 语音转文字，口述即成稿</li>
-      </ul>
-    </div>
-    <div class="pres-slide slide-set-2">
-      <h2>自动化备课工作流</h2>
-      <div class="highlight-box">
-        <p>老师语音输入 → 明天讲课主题 + 班级情况 + 价值导向</p>
-        <p style="margin-top:12px; color: var(--color-secondary);">↓</p>
-        <p>生成：讲稿 + PPT + 提问稿（按需）</p>
+      <p class="mod-desc">国产大模型工具推荐与实操演示，备课自动化工作流设计，信息素养基础训练。</p>
+      <div class="mod-tags">
+        <span class="mod-tag">通义千问</span>
+        <span class="mod-tag">Kimi</span>
+        <span class="mod-tag">秘塔搜索</span>
       </div>
-      <p style="margin-top:24px;">三个关键：领域上下文注入 · 价值导向内置 · 交付物多样性</p>
     </div>
 
-    <!-- 模块三 -->
-    <div class="pres-slide slide-set-3">
-      <h1>实操演练</h1>
-      <p class="subtitle">现场设计工作流 · 工具交付 · 个性化答疑</p>
-    </div>
-    <div class="pres-slide slide-set-3">
-      <h2>现场演练：设计你的备课工作流</h2>
-      <ul>
-        <li>选择一个你下一周要讲的课题</li>
-        <li>描述你的班级情况（30人/50人/重点班/普通班）</li>
-        <li>用语音输入给 AI，生成一份讲稿</li>
-        <li>AI 生成 PPT 提纲</li>
-        <li>针对班级中的特定学生生成分层任务</li>
-      </ul>
-    </div>
-    <div class="pres-slide slide-set-3">
-      <h2>培训承诺</h2>
-      <p class="big-number">3+</p>
-      <p style="font-size:22px;">每位老师将带走至少 3 种<br>可直接使用的 AI 辅助教学工具，<br>和一套适合你们学校的自动化备课工作流。</p>
+    <div class="mod-card" style="--card-accent: #4ae8a4">
+      <div class="mod-card-header">
+        <div class="mod-num">03</div>
+        <div>
+          <div class="mod-title">实操演练</div>
+          <div class="mod-time">60 分钟</div>
+        </div>
+      </div>
+      <p class="mod-desc">现场设计个人备课工作流，工具交付与安装指导，个性化问题答疑。</p>
+      <div class="mod-tags">
+        <span class="mod-tag">现场演练</span>
+        <span class="mod-tag">工作流设计</span>
+        <span class="mod-tag">答疑</span>
+      </div>
     </div>
   </div>
+</section>
 
-  <div class="pres-footer">
-    <button class="pres-btn prev">&#8592; 上一页</button>
-    <div class="pres-progress-wrap">
-      <div class="pres-progress-bar"><div class="pres-progress-bar-fill" style="width:8.3%"></div></div>
-      <span class="pres-progress-label">使用方向键或空格键翻页</span>
+<!-- TOOLS -->
+<section id="tools" style="margin-bottom:48px;">
+  <div class="section-label">// tools.recommend</div>
+  <div class="tools-grid">
+    <div class="tool-card">
+      <h4>通义千问 <div class="tool-badges"><span class="tool-badge cn">国产</span><span class="tool-badge free">免费</span></div></h4>
+      <p>日常备课、多轮对话、文档分析</p>
     </div>
-    <button class="pres-btn next">下一页 &#8594;</button>
+    <div class="tool-card">
+      <h4>Kimi <div class="tool-badges"><span class="tool-badge cn">国产</span><span class="tool-badge free">免费</span></div></h4>
+      <p>长文档分析，超长上下文（20万字）</p>
+    </div>
+    <div class="tool-card">
+      <h4>文心一言 <div class="tool-badges"><span class="tool-badge cn">国产</span><span class="tool-badge free">免费</span></div></h4>
+      <p>中文创作、内容生成、知识问答</p>
+    </div>
+    <div class="tool-card">
+      <h4>秘塔搜索 <div class="tool-badges"><span class="tool-badge cn">国产</span><span class="tool-badge free">免费</span></div></h4>
+      <p>无广告 AI 搜索，结构化结果呈现</p>
+    </div>
+    <div class="tool-card">
+      <h4>讯飞听见 <div class="tool-badges"><span class="tool-badge cn">国产</span></div></h4>
+      <p>语音转文字，口述即成文字稿</p>
+    </div>
+    <div class="tool-card">
+      <h4>iSlide <div class="tool-badges"><span class="tool-badge free">免费基础版</span></div></h4>
+      <p>PPT 辅助插件，智能排版与配色</p>
+    </div>
   </div>
-  <div class="pres-keyhints">
-    <kbd>←</kbd><kbd>→</kbd> 翻页 &nbsp; <kbd>Esc</kbd> 退出
+</section>
+
+<!-- MATERIALS -->
+<section id="materials" style="margin-bottom:48px;">
+  <div class="section-label">// materials.recommend</div>
+  <div class="materials-grid">
+    <div class="mat-card">
+      <div class="mat-icon">&#128214;</div>
+      <div class="mat-body">
+        <h4>驾驭工程：人机协同新范式</h4>
+        <p>从提示词工程到上下文工程，再到驾驭工程的演进脉络</p>
+        <div class="mat-meta">&#128196; 电子文档 · 约 20 分钟</div>
+      </div>
+    </div>
+    <div class="mat-card">
+      <div class="mat-icon">&#127912;</div>
+      <div class="mat-body">
+        <h4>AI 工具实操手册</h4>
+        <p>国产大模型工具从注册到精通的完整指南</p>
+        <div class="mat-meta">&#128196; PDF 文档 · 约 40 分钟</div>
+      </div>
+    </div>
+    <div class="mat-card">
+      <div class="mat-icon">&#128202;</div>
+      <div class="mat-body">
+        <h4>备课工作流实战案例</h4>
+        <p>5 个真实备课场景，从输入到交付物的完整演示</p>
+        <div class="mat-meta">&#127916; 视频 + 文档 · 约 60 分钟</div>
+      </div>
+    </div>
+    <div class="mat-card">
+      <div class="mat-icon">&#128640;</div>
+      <div class="mat-body">
+        <h4>教师 AI 工具清单</h4>
+        <p>20+ 款适合教师使用的 AI 工具清单，按场景分类</p>
+        <div class="mat-meta">&#128196; 持续更新</div>
+      </div>
+    </div>
   </div>
+</section>
+
+<!-- SLIDES CTA -->
+<section id="slides" style="margin-bottom:48px;">
+  <div class="section-label">// lecture.slides</div>
+  <div class="slides-cta">
+    <a href="slides/module-1.html" target="_blank" class="slide-card">
+      <div class="slide-card-icon">&#127774;</div>
+      <h4>模块一：价值引导</h4>
+      <p>工业革命视角 · 人机关系 · 驾驭工程</p>
+      <div class="slide-card-status">6 页 · 全屏演示</div>
+    </a>
+    <a href="slides/module-2.html" target="_blank" class="slide-card">
+      <div class="slide-card-icon">&#9881;</div>
+      <h4>模块二：工具与工作流</h4>
+      <p>国产大模型 · 上下文工程 · 备课自动化</p>
+      <div class="slide-card-status">5 页 · 全屏演示</div>
+    </a>
+    <a href="slides/module-3.html" target="_blank" class="slide-card">
+      <div class="slide-card-icon">&#9997;</div>
+      <h4>模块三：实操演练</h4>
+      <p>现场工作流设计 · 工具交付 · 答疑</p>
+      <div class="slide-card-status">4 页 · 全屏演示</div>
+    </a>
+  </div>
+</section>
+
+<!-- CHANGELOG PREVIEW -->
+<section style="margin-bottom:48px;">
+  <div class="section-label">// dev.log</div>
+  <div class="changelog-preview">
+    <h3>开发时间线 <a href="changelog.html" class="changelog-link">查看全部 &#8594;</a></h3>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">2026-04-10</div>
+        <div class="tl-title"><span class="tl-tag tool">工具</span>培训交付网站搭建完成</div>
+        <div class="tl-body">静态网站模板推送至 GitHub Pages，包含首页、模块页、工具清单、开发日志</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-04-10</div>
+        <div class="tl-title"><span class="tl-tag survey">调研</span>需求调研问卷正式发布</div>
+        <div class="tl-body">问卷通过飞书多维表格创建，采集教师的真实痛点和需求</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-04-10</div>
+        <div class="tl-title"><span class="tl-tag requirement">需求</span>项目需求正式确认</div>
+        <div class="tl-body">目标人群、核心目标、交付形态、地域约束等关键需求已与委托方确认</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-04-10</div>
+        <div class="tl-title"><span class="tl-tag milestone">启动</span>课程项目正式启动</div>
+        <div class="tl-body">定位为面向教育系统的 AI 赋能培训，采用"认知重构 → 方法论 → 工具+演示"三层交付结构</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 </div>
 
-<!-- 页脚 -->
-<footer class="footer">
-  <p>AI+ 教育教学培训 · 青岛市教育系统 · 2026 年度</p>
-  <p style="margin-top:8px;">如有疑问请联系培训组织方</p>
+<footer>
+  <span>AI+ 课程交付 v1.0 · 2026</span>
+  <span><a href="changelog.html">开发日志</a> · 持续迭代</span>
 </footer>
 
-<script src="assets/js/main.js"></script>
+<script>
+(function() {
+  var KEY = 'course-theme';
+  var btn = document.getElementById('themeToggle');
+  function setTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    localStorage.setItem(KEY, t);
+    btn.textContent = t === 'light' ? '☾' : '☀';
+  }
+  window.toggleTheme = function() {
+    var cur = document.documentElement.getAttribute('data-theme') || 'dark';
+    setTheme(cur === 'dark' ? 'light' : 'dark');
+  };
+  var saved = localStorage.getItem(KEY);
+  if (saved) { setTheme(saved); }
+  else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) { setTheme('light'); }
+  btn.addEventListener('click', toggleTheme);
+})();
+</script>
 </body>
 </html>
